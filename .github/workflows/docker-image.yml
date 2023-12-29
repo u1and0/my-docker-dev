@@ -113,3 +113,15 @@ jobs:
             u1and0/deno:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
         run: echo ${{ steps.build_deno.outputs.digest }}
+
+      - name: Build and Push Python managed by miniconda Image
+        id: build_python
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/python
+          push: true
+          tags: |
+            u1and0/python:latest
+            u1and0/python:${{ steps.get_sha.outputs.SHA }}
+      - name: Image Digest
+        run: echo ${{ steps.build_python.outputs.digest }}
