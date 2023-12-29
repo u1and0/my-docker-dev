@@ -31,7 +31,7 @@ jobs:
 
       # Build & Push images
       - name: Build and Push Docker Image
-        id: docker_build
+        id: build_archlinux
         uses: docker/build-push-action@v5
         with:
           context: ./docker_archlinux_yay
@@ -40,11 +40,11 @@ jobs:
             u1and0/yay:latest
             u1and0/yay:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+        run: echo ${{ steps.build_archlinux.outputs.digest }}
 
       # Build & Push images
       - name: Build and Push Docker Image
-        id: docker_build
+        id: build_yay
         uses: docker/build-push-action@v5
         with:
           context: ./docker_archlinux_env
@@ -53,4 +53,4 @@ jobs:
             u1and0/archlinux:latest
             u1and0/archlinux:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+        run: echo ${{ steps.build_yay.outputs.digest }}
