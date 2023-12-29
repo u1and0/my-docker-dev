@@ -11,7 +11,6 @@ FROM archlinux/archlinux:base-devel
 # Get reflector Server setting for faster download
 # Same as `reflector --verbose --country Japan -l 10 --sort rate`
 COPY pacman.conf /etc/pacman.conf
-COPY mirrorlist /etc/pacman.d/mirrorlist
 
 # Japanese setting
 ARG SETLANG="ja_JP"
