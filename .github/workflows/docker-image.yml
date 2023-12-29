@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         context: ["docker", "go", "deno", "python"]
-        build_nim: [false, false, false, true]
+        build_nim: [false, true]
 
     steps:
       - name: Checkout Repository
@@ -102,6 +102,7 @@ jobs:
       - name: Image Digest
         run: echo ${{ steps.build_from_zplug.outputs.digest }}
 
+      # PythonコンテナのときだけNimをビルド
       - name: Build and Push Nim Image
         if: matrix.build_nim == 'true'
         id: build_nim
