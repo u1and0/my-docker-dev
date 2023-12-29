@@ -10,9 +10,14 @@ on:
   # Run every Sunday at 9:00 AM
   schedule:
     - cron: '0 9 * * 0'
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        context: ["docker", "go", "deno", "python"]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -30,6 +35,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Build & Push images
+      #
+      # yay - archlinux - neovim - zplug は継承関係があるので
+      # 直列で実行する。
       - name: Build and Push yay Image
         id: build_yay
         uses: docker/build-push-action@v5
@@ -78,53 +86,19 @@ jobs:
       - name: Image Digest
         run: echo ${{ steps.build_zplug.outputs.digest }}
 
-      - name: Build and Push Docker in Docker Image
-        id: build_docker
+      # docker, go, deno, python はzplugを継承しているので
+      # 並列に実行できる。
+      - name: Build and Push Docker in Docker, Go, Deno, Python Image
+        id: build_from_zplug
         uses: docker/build-push-action@v5
         with:
-          context: ./images/docker
+          context: ./images/${{ matrix.context }}
           push: true
           tags: |
-            u1and0/docker:latest
-            u1and0/docker:${{ steps.get_sha.outputs.SHA }}
+            u1and0/${{ matrix.context }}:latest
+            u1and0/${{ matrix.context }}:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
-        run: echo ${{ steps.build_docker.outputs.digest }}
-
-      - name: Build and Push Go Image
-        id: build_go
-        uses: docker/build-push-action@v5
-        with:
-          context: ./images/go
-          push: true
-          tags: |
-            u1and0/go:latest
-            u1and0/go:${{ steps.get_sha.outputs.SHA }}
-      - name: Image Digest
-        run: echo ${{ steps.build_go.outputs.digest }}
-
-      - name: Build and Push TypeScript / deno Image
-        id: build_deno
-        uses: docker/build-push-action@v5
-        with:
-          context: ./images/deno
-          push: true
-          tags: |
-            u1and0/deno:latest
-            u1and0/deno:${{ steps.get_sha.outputs.SHA }}
-      - name: Image Digest
-        run: echo ${{ steps.build_deno.outputs.digest }}
-
-      - name: Build and Push Python managed by miniconda Image
-        id: build_python
-        uses: docker/build-push-action@v5
-        with:
-          context: ./images/python
-          push: true
-          tags: |
-            u1and0/python:latest
-            u1and0/python:${{ steps.get_sha.outputs.SHA }}
-      - name: Image Digest
-        run: echo ${{ steps.build_python.outputs.digest }}
+        run: echo ${{ steps.build_from_zplug.outputs.digest }}
 
       - name: Build and Push Nim Image
         id: build_nim
