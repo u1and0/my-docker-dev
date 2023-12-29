@@ -77,3 +77,15 @@ jobs:
             u1and0/zplug:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
         run: echo ${{ steps.build_zplug.outputs.digest }}
+
+      - name: Build and Push Go Image
+        id: build_go
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/go
+          push: true
+          tags: |
+            u1and0/go:latest
+            u1and0/go:${{ steps.get_sha.outputs.SHA }}
+      - name: Image Digest
+        run: echo ${{ steps.build_go.outputs.digest }}
