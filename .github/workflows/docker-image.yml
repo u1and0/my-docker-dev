@@ -78,6 +78,18 @@ jobs:
       - name: Image Digest
         run: echo ${{ steps.build_zplug.outputs.digest }}
 
+      - name: Build and Push Docker in Docker Image
+        id: build_docker
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/docker
+          push: true
+          tags: |
+            u1and0/docker:latest
+            u1and0/docker:${{ steps.get_sha.outputs.SHA }}
+      - name: Image Digest
+        run: echo ${{ steps.build_docker.outputs.digest }}
+
       - name: Build and Push Go Image
         id: build_go
         uses: docker/build-push-action@v5
