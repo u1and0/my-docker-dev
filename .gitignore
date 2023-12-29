@@ -1,3 +1,4 @@
-/docker*/git*/
+/docker*/.git*/
+/docker*/_git*/
 /docker_rust_env/
 /docker-nim/
