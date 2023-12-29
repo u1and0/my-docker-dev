@@ -18,6 +18,8 @@ jobs:
     strategy:
       matrix:
         context: ["docker", "go", "deno", "python"]
+        build_nim: [false, false, false, true]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -101,6 +103,7 @@ jobs:
         run: echo ${{ steps.build_from_zplug.outputs.digest }}
 
       - name: Build and Push Nim Image
+        if: matrix.build_nim == 'true'
         id: build_nim
         uses: docker/build-push-action@v5
         with:
@@ -110,4 +113,5 @@ jobs:
             u1and0/nim:latest
             u1and0/nim:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
+        if: matrix.build_nim == 'true'
         run: echo ${{ steps.build_nim.outputs.digest }}
