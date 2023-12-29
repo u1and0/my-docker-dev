@@ -27,8 +27,7 @@ RUN yay -Syyu --noconfirm neovim\
                         global \
                         man \
                         npm \
-                        jq \
-                        textlint &&\
+                        jq &&\
     : "'man-pages-ja' not accessible yet 2023.12.29" &&\
     : "Remove all packages cache " &&\
     yay -Scc --noconfirm
@@ -40,11 +39,11 @@ RUN nvim +UpdateRemotePlugins +VimProcInstall +q
 # textlint setting
 USER root
 RUN npm install --global \
-         textlint \
-         textlint-rule-max-ten \
-         textlint-rule-spellcheck-tech-word \
-         textlint-rule-preset-japanese \
-         textlint-no-mix-dearu-desumasu
+        textlint \
+        textlint-rule-max-ten \
+        textlint-rule-spellcheck-tech-word \
+        textlint-rule-preset-japanese \
+        textlint-rule-no-mix-dearu-desumasu
 USER u1and0
 
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
