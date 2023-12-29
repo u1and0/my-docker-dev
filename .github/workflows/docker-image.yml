@@ -53,3 +53,15 @@ jobs:
             u1and0/archlinux:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
         run: echo ${{ steps.build_archlinux.outputs.digest }}
+
+      - name: Build and Push Neovim Image
+        id: build_neovim
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/neovim
+          push: true
+          tags: |
+            u1and0/neovim:latest
+            u1and0/neovim:${{ steps.get_sha.outputs.SHA }}
+      - name: Image Digest
+        run: echo ${{ steps.build_neovim.outputs.digest }}
