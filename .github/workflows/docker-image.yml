@@ -30,27 +30,26 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Build & Push images
-      - name: Build and Push Docker Image
-        id: build_archlinux
+      - name: Build and Push yay Image
+        id: build_yay
         uses: docker/build-push-action@v5
         with:
-          context: ./docker_archlinux_yay
+          context: ./images/yay
           push: true
           tags: |
             u1and0/yay:latest
             u1and0/yay:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
-        run: echo ${{ steps.build_archlinux.outputs.digest }}
+        run: echo ${{ steps.build_yay.outputs.digest }}
 
-      # Build & Push images
-      - name: Build and Push Docker Image
-        id: build_yay
+      - name: Build and Push Archlinux Image
+        id: build_archlinux
         uses: docker/build-push-action@v5
         with:
-          context: ./docker_archlinux_env
+          context: ./images/archlinux
           push: true
           tags: |
             u1and0/archlinux:latest
             u1and0/archlinux:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
-        run: echo ${{ steps.build_yay.outputs.digest }}
+        run: echo ${{ steps.build_archlinux.outputs.digest }}
