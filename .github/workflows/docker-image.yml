@@ -4,7 +4,7 @@ on:
   # 手動ビルド
   workflow_dispatch:
   # mainにpushされたとき
-  puth:
+  push:
     branches:
       - main
   # Run every Sunday at 9:00 AM
