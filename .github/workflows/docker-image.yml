@@ -125,3 +125,15 @@ jobs:
             u1and0/python:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
         run: echo ${{ steps.build_python.outputs.digest }}
+
+      - name: Build and Push Nim Image
+        id: build_nim
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/nim
+          push: true
+          tags: |
+            u1and0/nim:latest
+            u1and0/nim:${{ steps.get_sha.outputs.SHA }}
+      - name: Image Digest
+        run: echo ${{ steps.build_nim.outputs.digest }}

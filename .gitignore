@@ -1,4 +1,4 @@
-/docker*/.git*/
-/docker*/_git*/
-/docker_rust_env/
-/docker-nim/
+/**/.git*/
+/**/_git*/
+/images/rust
+/images/**/*arm64
