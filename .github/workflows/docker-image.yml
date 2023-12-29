@@ -65,3 +65,15 @@ jobs:
             u1and0/neovim:${{ steps.get_sha.outputs.SHA }}
       - name: Image Digest
         run: echo ${{ steps.build_neovim.outputs.digest }}
+
+      - name: Build and Push Zplug Image
+        id: build_zplug
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/zplug
+          push: true
+          tags: |
+            u1and0/zplug:latest
+            u1and0/zplug:${{ steps.get_sha.outputs.SHA }}
+      - name: Image Digest
+        run: echo ${{ steps.build_zplug.outputs.digest }}
