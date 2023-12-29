@@ -1,0 +1,28 @@
+name: Weekly Docker Build
+
+on:
+  workflow_dispatch:  # 手動ビルド
+  # schedule:
+  #   - cron: '0 9 * * 0'  # Run every Sunday at 9:00 AM
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and Push Docker Image
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./docker_archlinux_env/Dockerfile
+          push: true
+          tags: |
+            u1and0/archlinux:latest
+            u1and0/archlinux:{{ github.sha }}
+      - name: Image Digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
