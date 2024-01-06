@@ -60,7 +60,16 @@ RUN source /etc/profile.d/conda.sh &&\
         jinja2 \
         jupyter \
         jupyter_contrib_nbextensions \
+        jupyterlab \
         jupyterthemes \
+        nodejs \
+        jupyterlab-language-pack-ja-jp \
+        jupyterlab_code_formatter \
+        black \
+        isort \
+        ipywidgets \
+        jupyterlab-lsp \
+        'python-lsp-server[all]' \
         line_profiler \
         matplotlib \
         more-itertools \
@@ -83,6 +92,8 @@ RUN source /etc/profile.d/conda.sh &&\
     : "clean cache" &&\
     conda build purge-all
 
+RUN jupyter labextension install @lckr/jupyterlab_variableinspector@3.0.7
+
 # !!
 # SHELL=/usr/bin/zsh at parent layer
 # !!
@@ -93,4 +104,4 @@ EXPOSE 8888
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="python dev container"\
       description.ja="python開発用コンテナ。ipython, jupyter notebook, neovimによる開発"\
-      build_version="python:v1.2.0"
+      build_version="python:v1.2.1"
