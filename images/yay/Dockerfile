@@ -27,7 +27,7 @@ RUN groupadd -g 1000 ${USERNAME} &&\
 RUN pacman-key --init &&\
     pacman -Sy --noconfirm archlinux-keyring
 # Dependency
-RUN pacman -Syu --noconfirm git go
+RUN pacman -Syu --noconfirm git go base-devel
 WORKDIR "/build"
 RUN git clone --depth 1 https://aur.archlinux.org/yay.git
 WORKDIR "/build/yay"
@@ -37,9 +37,7 @@ RUN chown -R ${USERNAME}:${USERNAME} /build &&\
 
 FROM archlinux:base-devel
 COPY --from=builder /usr/bin/yay /usr/bin/yay
-# Add yay option
-RUN echo '[multilib]' >> /etc/pacman.conf &&\
-    echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+
 # Add user for yay
 ARG USERNAME=aur
 RUN groupadd -g 1000 ${USERNAME} &&\
@@ -57,4 +55,4 @@ RUN groupadd -g 1000 ${USERNAME} &&\
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="yay on archlinux image. AUR packages are able to install by yay. yay -S {package}"\
       description.ja="Archlinux コンテナ。yayによるAURパッケージインストール可能. yay -S {package}, dotfiles develop branch"\
-      version="yay:0.1.2"
+      version="yay:0.1.3"

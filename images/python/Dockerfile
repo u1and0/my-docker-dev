@@ -2,50 +2,55 @@
 #
 # Usage:
 #   In host machine's shell
-#     $ docker pull u1and0/python-conda
-#     $ docker run -it --rm -v `pwd`:/work -w /work u1and0/python-conda
+#     $ docker pull u1and0/python
+#     $ docker run -it --rm -v `pwd`:/work -w /work u1and0/python
 #
 #   Using other command with activating `conda`
 #     $ docker run -it --rm -v `pwd`:/work -w /work\
-#           u1and0/python-conda bash -c ". .bashrc && python"
+#           u1and0/python bash -c ". .bashrc && python"
 #     $ docker run -it --rm -v `pwd`:/work -w /work\
-#           u1and0/python-conda bash -c ". .bashrc && ipython"
+#           u1and0/python bash -c ". .bashrc && ipython"
 #     $ docker run -it --rm -v `pwd`:/work -w /work\
-#           u1and0/python-conda bash -c ". .bashrc && nvim"
+#           u1and0/python bash -c ". .bashrc && nvim"
 #     $ docker run -P -it --rm -v `pwd`:/work -w /work\
-#           u1and0/python-conda bash -c ". .bashrc && jupyter notebook"
+#           u1and0/python bash -c ". .bashrc && jupyter notebook"
+#
+#     $ docker run -it --rm -v `pwd`:/work -w /work -p 8888:8888 \
+#            u1and0/python bash -c 'source /etc/profile.d/conda.sh && conda activate && ipython'  
 #
 #   In contaner
 #     Just type
 #     $ ipython
 #         or
-#     $ jupyter notebook
+#     $ jupyter lab
 #         or
 #     $ nvim
 
 FROM u1and0/zplug:latest
 
-# !!
-# USER=u1and0 not root user
-# !!
-
-# Install miniconda3-latest & restore conda packages
-RUN yay -Syyu --noconfirm miniconda3 &&\
-    yay -Scc &&\
-    sudo ln -s /opt/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-
 USER root
+
 RUN pacman -Syyu --noconfirm python-pip otf-ipafont &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
-ENV PATH /etc/profile.d/:$PATH
+
+# Install miniconda3-latest & restore conda packages
+USER u1and0
+RUN yay -Syyu --noconfirm miniconda3 &&\
+    yay -Scc
 
 # Base packages
-RUN source /etc/profile.d/conda.sh &&\
+USER root
+ENV PATH=/etc/profile.d:$PATH
+RUN ln -s /opt/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+RUN source conda.sh &&\
+    conda activate &&\
     conda install --quiet --yes \
         --channel conda-forge \
+        'python-lsp-server[all]' \
         autopep8 \
         beautifulsoup4 \
+        black \
         conda-build \
         cufflinks-py \
         dash \
@@ -57,24 +62,24 @@ RUN source /etc/profile.d/conda.sh &&\
         flake8 \
         h5py \
         ipython \
+        ipywidgets \
+        isort \
         jinja2 \
         jupyter \
         jupyter_contrib_nbextensions \
         jupyterlab \
-        jupyterthemes \
-        nodejs \
         jupyterlab-language-pack-ja-jp \
-        jupyterlab_code_formatter \
-        black \
-        isort \
-        ipywidgets \
         jupyterlab-lsp \
-        'python-lsp-server[all]' \
+        jupyterlab-variableinspector \
+        jupyterlab_code_formatter \
+        jupyterlab_vim \
+        jupyterthemes \
         line_profiler \
         matplotlib \
         more-itertools \
         mypy \
         neovim \
+        nodejs \
         notebook \
         numpy \
         pandas \
@@ -92,14 +97,28 @@ RUN source /etc/profile.d/conda.sh &&\
     : "clean cache" &&\
     conda build purge-all
 
-RUN jupyter labextension install @lckr/jupyterlab_variableinspector@3.0.7
-
-# !!
-# SHELL=/usr/bin/zsh at parent layer
-# !!
+# Docker build failed
+#
+# (Deprecated) Installing extensions with the jupyter labextension install command is now deprecated and will be removed in a future major version of JupyterLab.
+# Users should manage prebuilt extensions with package managers like pip and conda, and extension authors are encouraged to distribute their extensions as prebuilt packages
+#
+# RUN source /etc/profile.d/conda.sh &&\
+#     conda activate &&\
+#     jupyter labextension install @lckr/jupyterlab_variableinspector@3.0.7
 
 USER u1and0
+CMD ["/bin/bash", "-c", "source /etc/profile.d/conda.sh && conda activate && exec bash"]
 EXPOSE 8888
+
+# Usage:
+#
+# bash に入る
+# $ docker run -it --rm u1and0/python
+# (base) u1and0@4270a289dfbf:~$
+
+# jupyter labを立ち上げる
+# $ docker run -it --rm u1and0/python jupyter lab
+
 
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="python dev container"\
