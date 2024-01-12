@@ -46,12 +46,12 @@ services:
         image: "u1and0/docker:latest"
         tty: true
         volumes:
-            - "${HOME}:/home/u1and0/home"
-            - "${HOME}/Dropbox:/home/u1and0/Dropbox"
-            - "${HOME}/.zsh_history:/home/u1and0/.zsh_history"
-            - "${HOME}/.vim/bf:/home/u1and0/.vim/bf"
-            - "${HOME}/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
-            - "/mnt/e/Users/U1and0:/mnt/e"
+            - "/home/u1and0:/home/u1and0/home"
+            - "/home/u1and0/Dropbox:/home/u1and0/Dropbox"
+            - "/home/u1and0/.zsh_history:/home/u1and0/.zsh_history"
+            - "/home/u1and0/.vim/bf:/home/u1and0/.vim/bf"
+            - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
+            - "/mnt/e:/mnt/e"
             - "/var/run/docker.sock:/var/run/docker.sock"
         restart: "always"
         environment:
@@ -70,7 +70,7 @@ services:
             - "/home/u1and0/.zsh_history:/home/u1and0/.zsh_history"
             - "/home/u1and0/.vim/bf:/home/u1and0/.vim/bf"
             - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
-            - "/mnt/e/Users/U1and0:/mnt/e"
+            - "/mnt/e:/mnt/e"
         environment:
             - "PYTHONPATH=/home/u1and0/Dropbox/Program/python"
             - "HOST=python"
@@ -88,7 +88,7 @@ services:
             - "/home/u1and0/.zsh_history:/home/u1and0/.zsh_history"
             - "/home/u1and0/.vim/bf:/home/u1and0/.vim/bf"
             - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
-            - "/mnt/e/Users/U1and0:/mnt/e"
+            - "/mnt/e:/mnt/e"
         environment:
             - "HOST=go"
         ports:
@@ -120,7 +120,7 @@ services:
             - "/home/u1and0/.zsh_history:/home/u1and0/.zsh_history"
             - "/home/u1and0/.vim/bf:/home/u1and0/.vim/bf"
             - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
-            - "/mnt/e/Users/U1and0:/mnt/e"
+            - "/mnt/e:/mnt/e"
         environment:
             - "HOST=deno"
         ports:
@@ -135,7 +135,7 @@ services:
             - "/home/u1and0/.zsh_history:/home/u1and0/.zsh_history"
             - "/home/u1and0/.vim/bf:/home/u1and0/.vim/bf"
             - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
-            - "/mnt/e/Users/U1and0:/mnt/e"
+            - "/mnt/e:/mnt/e"
         environment:
             - "HOST=nim"
         ports:
