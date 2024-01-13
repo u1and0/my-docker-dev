@@ -1,13 +1,12 @@
-maintainer: u1and0 <e01.ando60@gmail.com>
-version 3.7 for docker version 18.06+
-see https://docs.docker.com/compose/compose-file/
+<img src="https://github.com/u1and0/my-docker-dev/actions/workflows/docker-image.yml/badge.svg"></img>
+<img src="https://img.shields.io/badge/LICENSE-MIT-3388FF.svg"></img>
 
 # What for
 docker in docker dev.env
 
 * master: zsh & zplug env. Parents for all docker image.
-* jupyter: python env. It can use ipython & jupyter
-* vim-go: golang env.
+* python: python env. It can use ipython & jupyter
+* go: golang env.
 
 # Usage
 
