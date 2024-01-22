@@ -1,5 +1,5 @@
 # maintainer: u1and0 <e01.ando60@gmail.com>
-# version 3.7 for docker version 18.06+
+# version 3.7 for docker version 19.03+
 # see https://docs.docker.com/compose/compose-file/
 # What for:
 #    docker in docker dev.env
@@ -21,11 +21,17 @@
 #    # Login go env
 #    $ docker exec -it composeset_go_1 zsh -l
 #
-#    # Login python env
-# 	 $ docker exec -it composeset_jupyter_1 bash -c ". .bashrc && zsh"
+#    # Login deno env
+#    $ docker exec -it composeset_deno_1 zsh -l
 #
-#    # Login python env as ipython
-# 	 $ docker exec -it composeset_jupyter_1 bash -c ". .bashrc && ipython"
+#    # Login python env
+#    $ docker exec -it composeset_jupyter_1 zsh
+#
+#    # Login ipython
+#    $ docker exec -it composeset_jupyter_1 bash -c "source /etc/profile.d/conda.sh && conda activate && ipython"
+#
+#    # Run jupyter lab
+#    $ docker exec -it composeset_jupyter_1 bash -c "source /etc/profile.d/conda.sh && conda activate && jupyter lab"
 #
 #    # Setup git after login
 #    $ git stash
