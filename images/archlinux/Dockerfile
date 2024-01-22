@@ -37,10 +37,9 @@ RUN : "Copy missing language pack '${SETLANG}'" &&\
 # Package update
 # `pacman-key --init` must run at first
 RUN pacman-key --init &&\
-    pacman-key --populate &&\
-    pacman -Syu --noconfirm git openssh &&\
-    : "Clear cache" &&\
-    pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
+    pacman-key --populate archlinux
+RUN pacman -Syu --noconfirm git openssh &&\
+    pacman -Scc
 
 ARG USERNAME=u1and0
 # docker build --build-arg USERNAME=${USERNAME} -t u1and0/archlinux .
