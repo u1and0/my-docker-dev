@@ -37,7 +37,8 @@ RUN : "Copy missing language pack '${SETLANG}'" &&\
 # Package update
 # `pacman-key --init` must run at first
 RUN pacman-key --init &&\
-    pacman-key --populate archlinux
+    pacman-key --populate archlinux &&\
+    pacman-key --refresh-keys
 RUN pacman -Syu --noconfirm git openssh &&\
     pacman -Scc
 
