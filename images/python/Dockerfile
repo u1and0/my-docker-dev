@@ -35,8 +35,9 @@ RUN pacman -Syyu --noconfirm python-pip otf-ipafont &&\
 
 
 # Install miniconda3-latest & restore conda packages
+# Install libtiff5 for %matplotlib inline on jupyter lab notebook
 USER u1and0
-RUN yay -Syyu --noconfirm miniconda3 &&\
+RUN yay -Syyu --noconfirm miniconda3 libtiff5 &&\
     yay -Scc
 
 # Base packages
