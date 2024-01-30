@@ -6,7 +6,7 @@
 # $ docker build --build-arg USERNAME=${USERNAME} --build-arg branch="develop" -t u1and0/archlinux .
 
 # Archlinux official image daily build version
-FROM archlinux:base-devel
+FROM archlinux/archlinux:base-devel
 
 # Get reflector Server setting for faster download
 # Same as `reflector --verbose --country Japan -l 10 --sort rate`
@@ -39,8 +39,7 @@ RUN : "Copy missing language pack '${SETLANG}'" &&\
 RUN pacman-key --init &&\
     pacman-key --populate archlinux &&\
     pacman -Syu --noconfirm git openssh &&\
-    : "Clear cache" &&\
-    pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
+    pacman -Scc
 
 ARG USERNAME=u1and0
 # docker build --build-arg USERNAME=${USERNAME} -t u1and0/archlinux .

@@ -5,6 +5,10 @@ on:
   workflow_dispatch:
   # mainにpushされたとき
   push:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - '*.yml'
     branches:
       - main
   # Run every Sunday at 9:00 AM

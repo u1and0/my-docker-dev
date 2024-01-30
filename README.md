@@ -5,25 +5,33 @@
 docker in docker dev.env
 
 * master: zsh & zplug env. Parents for all docker image.
-* python: python env. It can use ipython & jupyter
 * go: golang env.
+* deno: JavaScript runtime Deno env.
+* Python: Python env. Develop on ipython & jupyter lab
 
 # Usage
 
 ```
-$ cd /path/to/composeset
+$ git clone u1and0/my-docker-dev
+$ cd /path/to/my-docker-dev
 $ docker-compose up
-$ docker exec -it composeset_master_1 zsh -l
+$ docker exec -it my-docker-dev_master_1 zsh -l
 
 # Login master container then...
 $ tmux
 
 # Login go env
-$ docker exec -it composeset_vim-go_1 zsh -l
+$ docker exec -it my-docker-dev_go_1 zsh -l
+
+# Login deno env
+$ docker exec -it my-docker-dev_deno_1 zsh -l
 
 # Login python env
-$ docker exec -it composeset_jupyter_1 bash -c ". .bashrc && zsh"
+$ docker exec -it my-docker-dev_jupyter_1 zsh
 
-# Login python env as ipython
-$ docker exec -it composeset_jupyter_1 bash -c ". .bashrc && ipython"
+# Login ipython
+$ docker exec -it my-docker-dev_jupyter_1 bash -c "source /etc/profile.d/conda.sh && conda activate && ipython"
+
+# Run jupyter lab
+$ docker exec -it my-docker-dev_jupyter_1 bash -c "source /etc/profile.d/conda.sh && conda activate && jupyter lab"
 ```
