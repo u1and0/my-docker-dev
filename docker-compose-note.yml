@@ -66,8 +66,8 @@ services:
             - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
         environment:
             - "PYTHONPATH=/home/u1and0/Dropbox/Program/python"
-            - "HOST=conda"
-        command: "bash -c '. .bashrc && jupyter notebook'"
+            - "HOST=python"
+        command: ["bash", "-c", "source /etc/profile.d/conda.sh && conda activate && jupyter lab"]
         ports:
             - "8888:8888"  # jupyter notebook
             - "8880:8880"  # plotly dash
