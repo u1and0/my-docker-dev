@@ -30,73 +30,14 @@ FROM u1and0/zplug:latest
 
 USER root
 
-RUN pacman -Syyu --noconfirm python-pip otf-ipafont &&\
+RUN pacman -Syyu --noconfirm python-pip python-pipenv otf-ipafont &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
 
-# Install miniconda3-latest & restore conda packages
-# Install libtiff5 for %matplotlib inline on jupyter lab notebook
-USER u1and0
-RUN yay -Syyu --noconfirm miniconda3 libtiff5 &&\
-    yay -Scc
 
 # Base packages
-USER root
-ENV PATH=/etc/profile.d:$PATH
-RUN ln -s /opt/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN source conda.sh &&\
-    conda activate &&\
-    conda install --quiet --yes \
-        --channel conda-forge \
-        'python-lsp-server[all]' \
-        autopep8 \
-        beautifulsoup4 \
-        black \
-        conda-build \
-        cufflinks-py \
-        dash \
-        dash-core-components \
-        dash-html-components \
-        dash-renderer \
-        dash-table \
-        fastapi \
-        flake8 \
-        h5py \
-        ipython \
-        ipywidgets \
-        isort \
-        jinja2 \
-        jupyter \
-        jupyter_contrib_nbextensions \
-        jupyterlab \
-        jupyterlab-language-pack-ja-jp \
-        jupyterlab-lsp \
-        jupyterlab-variableinspector \
-        jupyterlab_code_formatter \
-        jupyterlab_vim \
-        jupyterthemes \
-        line_profiler \
-        matplotlib \
-        more-itertools \
-        mypy \
-        neovim \
-        nodejs \
-        notebook \
-        numpy \
-        pandas \
-        plotly \
-        poetry \
-        pyflakes \
-        pygments \
-        pylint \
-        requests \
-        scikit-learn \
-        scipy \
-        seaborn \
-        uvicorn \
-        yapf &&\
-    : "clean cache" &&\
-    conda build purge-all
+COPY ./requirements.txt /home/u1and0/build/
+RUN pipenv install -r /home/u1and0/build/requirements.txt
 
 # Docker build failed
 #
@@ -124,4 +65,4 @@ EXPOSE 8888
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="python dev container"\
       description.ja="python開発用コンテナ。ipython, jupyter notebook, neovimによる開発"\
-      build_version="python:v1.2.1"
+      build_version="python:v2.0.0"
