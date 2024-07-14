@@ -22,7 +22,8 @@ ENV LANG="${SETLANG}.UTF8"\
     LC_MEASUREMENT="${SETLANG}.UTF8"
 
 # Locale setting
-ARG GLIBVER="2.33"
+# https://ftp.gnu.org/gnu/libc/
+ARG GLIBVER="2.39"
 ARG LOCALETIME="Asia/Tokyo"
 RUN : "Copy missing language pack '${SETLANG}'" &&\
     curl http://ftp.gnu.org/gnu/libc/glibc-${GLIBVER}.tar.bz2 | tar -xjC /tmp &&\
@@ -47,7 +48,6 @@ ARG UID=1000
 ARG GID=1000
 RUN echo "Build start with USERNAME: $USERNAME UID: $UID GID: $GID" &&\
     pacman -Sy &&\
-    : "Add user ${USERNAME} for yay install" &&\
     groupadd -g ${GID} ${USERNAME} &&\
     useradd -u ${UID} -g ${GID} -m -s /bin/bash ${USERNAME} &&\
     passwd -d ${USERNAME} &&\
@@ -59,9 +59,6 @@ RUN echo "Build start with USERNAME: $USERNAME UID: $UID GID: $GID" &&\
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME} &&\
     mkdir /build &&\
     chown -R ${USERNAME}:${USERNAME} /build
-
-# yay install
-COPY --from=u1and0/yay:latest /usr/bin/yay /usr/bin/yay
 
 # My dotfiles
 WORKDIR /home/${USERNAME}
@@ -79,6 +76,6 @@ RUN git clone --branch $branch\
 CMD ["/bin/bash"]
 
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
-      description="archlinux image. AUR packages are able to install by yay. yay -S {package}"\
-      description.ja="Archlinux イメージ。yayによるAURパッケージインストール可能. yay -S {package}, dotfiles develop branch"\
-      version="arlhlinux:5.1.0"
+      description="archlinux image."\
+      description.ja="Archlinux イメージ。"\
+      version="arlhlinux:7.0.0"

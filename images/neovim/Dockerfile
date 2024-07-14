@@ -13,9 +13,7 @@ USER root
 RUN pacman -Sy --noconfirm archlinux-keyring
 
 # Neovim install
-# USER u1and0 or somebody except root
-USER u1and0
-RUN yay -Syyu --noconfirm neovim\
+RUN pacman -Syyu --noconfirm neovim\
                         python-neovim\
                         vim\
                         fd\
@@ -30,10 +28,11 @@ RUN yay -Syyu --noconfirm neovim\
                         jq &&\
     : "'man-pages-ja' not accessible yet 2023.12.29" &&\
     : "Remove all packages cache " &&\
-    yay -Scc --noconfirm
+    pacman -Scc --noconfirm
 
 # Plugins insall
 # Install & Update plguins & vimproc
+USER u1and0
 RUN nvim +UpdateRemotePlugins +VimProcInstall +q
 
 # textlint setting
@@ -48,4 +47,4 @@ USER u1and0
 
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="OS=archlinux, editor=neovim, dotfiles=u1and0/dotfiles, plugin manager=dein"\
-      version="neovim:v5.2.0"
+      version="neovim:v7.0.0"

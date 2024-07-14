@@ -15,15 +15,19 @@ RUN pacman -Sy --noconfirm archlinux-keyring &&\
     pacman -Syyu --noconfirm zsh awk bat actionlint &&\
     : "pacmanのキャッシュ削除"&&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
-USER u1and0
-RUN yay -Su --noconfirm gitflow-avh &&\
-    : "Remove cache" &&\
-    yay -Qtdq | xargs -r yay --noconfirm -Rcns
+
+# git-flow install for git work flow
+WORKDIR /tmp
+RUN curl --silent --location  https://raw.githubusercontent.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh --output ./gitflow-installer.sh &&\
+    bash gitflow-installer.sh install stable &&\
+    rm gitflow-installer.sh
 
 # Install zplug plugins
 # zplug install でエラー
 #0 2.539 [zplug] WARNING: pipe syntax is deprecated! Please use 'on' tag instead.
 # 解決策がわからないのでとりあえず`|| exit0`
+USER u1and0
+WORKDIR /home/u1and0
 RUN git clone --depth 1 https://github.com/zplug/zplug .zplug &&\
     zsh -ic "source .zshrc && zplug install" || exit 0
 ENV SHELL="/usr/bin/zsh"
@@ -31,4 +35,4 @@ CMD ["/usr/bin/zsh"]
 
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="OS=archlinux editor=neovim shell=zsh_with_zplug"\
-      version="zplug v6.0.2"
+      version="zplug v7.0.0"

@@ -22,15 +22,18 @@ RUN pacman -Syyu --noconfirm tmux \
                             pigz &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
+# Install hadolint for Dockerfile linter
+RUN curl -fsSL https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -O &&\
+    mv ./hadolint-Linux-x86_64 /usr/bin/hadolint &&\
+    chmod 755 /usr/bin/hadolint
+
 # Install tmux && tmux-plugins
 USER u1and0
-RUN yay -Syu --noconfirm hadolint-bin &&\
-    yay -Qtdq | xargs -r yay --noconfirm -Rcns
 RUN git submodule update --init --recursive .tmux/plugins/tpm &&\
     "${HOME}"/.tmux/plugins/tpm/scripts/install_plugins.sh
 
-ENV SHELL "/usr/bin/zsh"
+ENV SHELL="/usr/bin/zsh"
 CMD ["/usr/bin/zsh"]
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="Docker in Docker with archlinux image"\
-      version="v2.0.1"
+      version="zplug v7.0.0"
