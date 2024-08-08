@@ -12,7 +12,7 @@
 #
 # Usage:
 #	 $ cd /path/to/composeset
-#    $ docker-compose up
+#    $ docker-compose up -d
 #    $ docker exec -it composeset_master_1 zsh -l
 #
 # 	 # Login master container then...
@@ -33,19 +33,9 @@
 #    # Run jupyter lab
 #    $ docker exec -it composeset_jupyter_1 bash -c "source /etc/profile.d/conda.sh && conda activate && jupyter lab"
 #
-#    # Setup git after login
-#    $ git stash
-#    $ git fetch
-#    $ git checkout origin/develop
-#    $ git switch -c develop
-#    $ git stash pop
-#       for shortly
-#    $ gst && g fetch && gch origin/develop && g switch -c develop && gst pop
-#
 #    # Setup pacman after login
 #    $ pacman -Sy archlinux-keyring
 #    $ pacman -Syu
-version: '3'
 services:
 
     master:
@@ -76,11 +66,11 @@ services:
             - "/home/u1and0/.zsh_history:/home/u1and0/.zsh_history"
             - "/home/u1and0/.vim/bf:/home/u1and0/.vim/bf"
             - "/home/u1and0/yankring_history_v2.txt:/home/u1and0/yankring_history_v2.txt"
-            - "/mnt/e:/mnt/e"
+            - "/mnt/1THDD:/mnt/1THDD"
         environment:
             - "PYTHONPATH=/home/u1and0/Dropbox/Program/python"
             - "HOST=python"
-        command: ["bash", "-c", "source /etc/profile.d/conda.sh && conda activate && jupyter lab"]
+        command: ["bash", "-c", "pipenv shell"]
         ports:
             - "8888:8888"  # jupyter notebook
             - "8880:8880"  # plotly dash

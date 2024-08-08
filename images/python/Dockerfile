@@ -36,6 +36,7 @@ RUN pacman -Syyu --noconfirm python-pip python-pipenv otf-ipafont &&\
 
 
 # Base packages
+USER u1and0
 COPY ./requirements.txt /home/u1and0/build/
 RUN pipenv install -r /home/u1and0/build/requirements.txt
 
@@ -48,8 +49,7 @@ RUN pipenv install -r /home/u1and0/build/requirements.txt
 #     conda activate &&\
 #     jupyter labextension install @lckr/jupyterlab_variableinspector@3.0.7
 
-USER u1and0
-CMD ["/bin/bash", "-c", "source /etc/profile.d/conda.sh && conda activate && exec bash"]
+CMD ["pipenv", "shell"]
 EXPOSE 8888
 
 # Usage:
