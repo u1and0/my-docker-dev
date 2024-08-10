@@ -12,7 +12,7 @@ FROM u1and0/neovim:latest
 # Reinstall packages required by zplug
 USER root
 RUN pacman -Sy --noconfirm archlinux-keyring &&\
-    pacman -Syyu --noconfirm zsh awk bat actionlint &&\
+    pacman -Syyu --noconfirm zsh awk bat actionlint unzip &&\
     : "pacmanのキャッシュ削除"&&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
@@ -21,6 +21,15 @@ WORKDIR /tmp
 RUN curl --silent --location  https://raw.githubusercontent.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh --output ./gitflow-installer.sh &&\
     bash gitflow-installer.sh install stable &&\
     rm gitflow-installer.sh
+
+# Install gpt-cli
+RUN latest_url=$(curl -s https://api.github.com/repos/u1and0/gpt-cli/releases/latest \
+    | grep "browser_download_url.*gpt-cli-linux.zip" \
+    | cur -d '"' -f 4) &&\
+    curl -fsSLO $latest_url &&\
+    unzip gpt-cli-linux.zip &&\
+    chmod 755 gpt &&\
+    mv ./gpt /usr/bin
 
 # Install zplug plugins
 # zplug install でエラー
