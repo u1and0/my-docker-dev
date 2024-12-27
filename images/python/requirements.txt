@@ -30,7 +30,6 @@ numpy
 pandas
 plotly
 poetry
-polars
 pyflakes
 pygments
 pylint
@@ -39,5 +38,6 @@ requests
 scikit-learn
 scipy
 seaborn
+tables
 uvicorn
 yapf
