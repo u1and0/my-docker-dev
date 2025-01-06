@@ -24,7 +24,7 @@ RUN curl --silent --location  https://raw.githubusercontent.com/petervanderdoes/
 
 # Install gpt-cli
 RUN latest_url=$(curl -s https://api.github.com/repos/u1and0/gpt-cli/releases/latest \
-    | grep "browser_download_url.*gpt-cli-linux.zip" \
+    | grep "browser_download_url.*gpt-cli-linux-x64.zip" \
     | cut -d '"' -f 4) &&\
     curl -fsSLO $latest_url &&\
     unzip gpt-cli-linux.zip &&\
