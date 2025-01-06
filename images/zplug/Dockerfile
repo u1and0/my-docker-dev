@@ -27,7 +27,7 @@ RUN latest_url=$(curl -s https://api.github.com/repos/u1and0/gpt-cli/releases/la
     | grep "browser_download_url.*gpt-cli-linux-x64.zip" \
     | cut -d '"' -f 4) &&\
     curl -fsSLO $latest_url &&\
-    unzip gpt-cli-linux.zip &&\
+    unzip gpt-cli-linux-x64.zip &&\
     chmod 755 gpt &&\
     mv ./gpt /usr/bin
 
