@@ -63,11 +63,7 @@ RUN echo "Build start with USERNAME: $USERNAME UID: $UID GID: $GID" &&\
 # My dotfiles
 WORKDIR /home/${USERNAME}
 USER ${USERNAME}
-# `--build-arg=branch=v1.15.1` のようにしてブランチ名、タグ名指定しなければ
-# デフォルトではmasterブランチをcloneしてくる
-ARG branch="master"
-RUN git clone --branch $branch\
-    https://github.com/u1and0/dotfiles.git dotfiles &&\
+RUN git clone https://github.com/u1and0/dotfiles.git dotfiles &&\
     : "Replace dotfiles" &&\
     mv -f dotfiles/.git . &&\
     git reset --hard &&\
@@ -78,4 +74,4 @@ CMD ["/bin/bash"]
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
       description="archlinux image."\
       description.ja="Archlinux イメージ。"\
-      version="arlhlinux:7.0.0"
+      version="arlhlinux:7.1.0"

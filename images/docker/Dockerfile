@@ -19,6 +19,10 @@ RUN pacman -Syyu --noconfirm tmux \
                             docker \
                             docker-compose \
                             docker-buildx \
+                            btop \
+                            ctop \
+                            termdown \
+                            cmatrix \
                             pigz &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
