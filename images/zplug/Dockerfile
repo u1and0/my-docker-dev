@@ -28,8 +28,8 @@ RUN latest_url=$(curl -s https://api.github.com/repos/u1and0/gpt-cli/releases/la
     | cut -d '"' -f 4) &&\
     curl -fsSLO $latest_url &&\
     unzip gpt-cli-linux-x64.zip &&\
-    chmod 755 gpt &&\
-    mv ./gpt /usr/bin
+    chmod 755 release-package/gpt &&\
+    mv release-package/gpt /usr/bin
 
 # Install zplug plugins
 # zplug install でエラー
