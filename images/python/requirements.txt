@@ -21,6 +21,7 @@ jupyterlab-lsp
 jupyterlab_code_formatter
 jupyterlab_vim
 jupyterthemes
+kaleido
 matplotlib
 more-itertools
 mypy
