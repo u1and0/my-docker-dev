@@ -32,7 +32,7 @@ RUN pacman -Syyu --noconfirm uv otf-ipafont &&\
 # Base packages
 USER u1and0
 COPY ./requirements.txt /home/u1and0/build/
-RUN uv pip install -r /home/u1and0/build/requirements.txt
+RUN uv pip install --system -r /home/u1and0/build/requirements.txt
 CMD ["pipenv", "shell"]
 EXPOSE 8888
 
