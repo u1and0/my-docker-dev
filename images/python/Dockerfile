@@ -28,12 +28,12 @@ FROM u1and0/zplug:latest
 USER root
 RUN pacman -Syyu --noconfirm uv otf-ipafont &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
+COPY ./requirements.txt /home/u1and0/build/
+RUN uv pip install --system -r /home/u1and0/build/requirements.txt
 
 # Base packages
 USER u1and0
-COPY ./requirements.txt /home/u1and0/build/
-RUN uv pip install --system -r /home/u1and0/build/requirements.txt
-CMD ["pipenv", "shell"]
+CMD ["zsh"]
 EXPOSE 8888
 
 LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
