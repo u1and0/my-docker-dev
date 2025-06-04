@@ -26,13 +26,13 @@
 FROM u1and0/zplug:latest
 
 USER root
-RUN pacman -Syyu --noconfirm python-pip python-pipenv otf-ipafont &&\
+RUN pacman -Syyu --noconfirm uv otf-ipafont &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
 # Base packages
 USER u1and0
 COPY ./requirements.txt /home/u1and0/build/
-RUN pipenv install -r /home/u1and0/build/requirements.txt
+RUN uv pip install -r /home/u1and0/build/requirements.txt
 CMD ["pipenv", "shell"]
 EXPOSE 8888
 
