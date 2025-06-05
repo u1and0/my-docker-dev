@@ -70,7 +70,7 @@ services:
         environment:
             - "PYTHONPATH=/home/u1and0/Dropbox/Program/python"
             - "HOST=python"
-        command: ["pipenv", "run", "jupyter", "lab"]
+        command: ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root"]
         ports:
             - "8888:8888"  # jupyter notebook
             - "8880:8880"  # plotly dash
