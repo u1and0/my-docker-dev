@@ -30,17 +30,23 @@ USER root
 RUN pacman -Syyu --noconfirm uv otf-ipafont &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
+ARG USERNAME=u1and0
+# 仮想環境の場所
+ENV APP_HOME="/home/${USERNAME}"
+ENV VENV_PATH="${APP_HOME}/.venv"
+
+# 作業ディレクトリとユーザー切り替え
+USER $USERNAME
+WORKDIR $APP_HOME
+ENV PATH="${VENV_PATH}/bin:${APP_HOME}/.local/bin:$PATH"
+
 # 仮想環境の構築
-ENV VENV_PATH="/opt/venv"
-ENV PATH="${VENV_PATH}/bin:$PATH"
-RUN uv venv $VENV_PATH
+RUN uv venv $VENV_PATH --python $(which python)
 
 # 開発用パッケージのインストール
-COPY ./requirements.txt /tmp/
-RUN uv pip install --python ${VENV_PATH}/bin/python -r /tmp/requirements.txt &&\
+COPY --chown=$USERNAME:$USERNAME ./requirements.txt /tmp/
+RUN uv pip install -r /tmp/requirements.txt &&\
     rm /tmp/requirements.txt
-
-USER u1and0
 EXPOSE 8888
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root"]
 
