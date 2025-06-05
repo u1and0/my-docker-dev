@@ -25,16 +25,24 @@
 
 FROM u1and0/zplug:latest
 
+# パッケージマネージャーの準備
 USER root
 RUN pacman -Syyu --noconfirm uv otf-ipafont &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
-COPY ./requirements.txt /home/u1and0/build/
-RUN uv pip install --system -r /home/u1and0/build/requirements.txt
 
-# Base packages
+# 仮想環境の構築
+ENV VENV_PATH="/opt/venv"
+ENV PATH="${VENV_PATH}/bin:$PATH"
+RUN uv venv $VENV_PATH
+
+# 開発用パッケージのインストール
+COPY ./requirements.txt /tmp/
+RUN uv pip install --python ${VENV_PATH}/bin/python -r /tmp/requirements.txt &&\
+    rm /tmp/requirements.txt
+
 USER u1and0
-CMD ["zsh"]
 EXPOSE 8888
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root"]
 
 LABEL maintainer="u1and0"\
       description="python dev container"\
