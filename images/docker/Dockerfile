@@ -38,6 +38,6 @@ RUN git submodule update --init --recursive .tmux/plugins/tpm &&\
 
 ENV SHELL="/usr/bin/zsh"
 CMD ["/usr/bin/zsh"]
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="Docker in Docker with archlinux image"\
       version="zplug v7.0.0"

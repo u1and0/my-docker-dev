@@ -71,7 +71,7 @@ RUN git clone https://github.com/u1and0/dotfiles.git dotfiles &&\
 
 CMD ["/bin/bash"]
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="archlinux image."\
       description.ja="Archlinux イメージ。"\
       version="arlhlinux:7.1.0"

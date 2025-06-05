@@ -12,6 +12,6 @@ RUN pacman -Syu --noconfirm nodejs npm deno &&\
 
 USER u1and0
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="deno / typescript env with neovim"\
       version="deno:v0.1.0"

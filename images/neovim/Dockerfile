@@ -45,6 +45,6 @@ RUN npm install --global \
         textlint-rule-no-mix-dearu-desumasu
 USER u1and0
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="OS=archlinux, editor=neovim, dotfiles=u1and0/dotfiles, plugin manager=dein"\
       version="neovim:v7.0.0"

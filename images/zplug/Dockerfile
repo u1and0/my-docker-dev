@@ -42,6 +42,6 @@ RUN git clone --depth 1 https://github.com/zplug/zplug .zplug &&\
 ENV SHELL="/usr/bin/zsh"
 CMD ["/usr/bin/zsh"]
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="OS=archlinux editor=neovim shell=zsh_with_zplug"\
       version="zplug v7.0.0"

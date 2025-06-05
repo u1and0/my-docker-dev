@@ -33,6 +33,6 @@ RUN go install github.com/mattn/efm-langserver@latest
 RUN nimble refresh &&\
     nimble -y install nimlsp inim jupyternim
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="nim lang env with neovim and jupyter notebook"\
       version="rust:v1.0.2"

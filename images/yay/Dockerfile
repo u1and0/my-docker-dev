@@ -52,7 +52,7 @@ RUN groupadd -g 1000 ${USERNAME} &&\
     mkdir /build &&\
     chown -R ${USERNAME}:${USERNAME} /build
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="yay on archlinux image. AUR packages are able to install by yay. yay -S {package}"\
       description.ja="Archlinux コンテナ。yayによるAURパッケージインストール可能. yay -S {package}, dotfiles develop branch"\
       version="yay:0.1.3"

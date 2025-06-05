@@ -45,7 +45,7 @@ RUN go install github.com/x-motemen/gore/cmd/gore@latest &&\
     go clean -cache
     # go install github.com/k0kubun/pp@latest &&\
 
-LABEL maintainer="u1and0 <e01.ando60@gmail.com>"\
+LABEL maintainer="u1and0"\
       description="golang env with neovim"\
       description.ja="golang開発環境with neovim"\
       version="vim-go:v3.0.1"
