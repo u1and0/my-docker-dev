@@ -16,7 +16,6 @@ jinja2
 jupyter
 jupyter-ai
 jupyter_ai_magics
-jupyter_contrib_nbextensions
 jupyterlab
 jupyterlab-language-pack-ja-jp
 jupyterlab-lsp
