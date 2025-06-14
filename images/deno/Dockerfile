@@ -6,9 +6,9 @@ FROM u1and0/zplug:latest
 USER root
 
 # Install nodejs, npm, deno, typescript
-RUN pacman -Syu --noconfirm nodejs npm deno &&\
+RUN pacman -Syu --noconfirm nodejs npm &&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns &&\
-    npm install -g typescript
+    npm install -g typescript deno
 
 USER u1and0
 
