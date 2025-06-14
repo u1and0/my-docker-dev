@@ -3,7 +3,7 @@
 # for update all packages
 # $ sudo -u aur yay --noconfirm
 
-FROM archlinux:base-devel AS builder
+FROM ogarcia/archlinux:devel AS builder
 
 # Add user for yay
 ARG USERNAME=aur
@@ -35,7 +35,7 @@ RUN chown -R ${USERNAME}:${USERNAME} /build &&\
     CGO_ENABLED=0 sudo -u ${USERNAME} makepkg --noconfirm -si &&\
     sudo -u ${USERNAME} yay --afterclean --removemake --save
 
-FROM archlinux:base-devel
+FROM ogarcia/archlinux:devel
 COPY --from=builder /usr/bin/yay /usr/bin/yay
 
 # Add user for yay

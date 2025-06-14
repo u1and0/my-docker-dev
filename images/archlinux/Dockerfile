@@ -6,7 +6,7 @@
 # $ docker build --build-arg USERNAME=${USERNAME} --build-arg branch="develop" -t u1and0/archlinux .
 
 # Archlinux official image daily build version
-FROM archlinux/archlinux:base-devel
+FROM ogarcia/archlinux:devel
 
 # Get reflector Server setting for faster download
 # Same as `reflector --verbose --country Japan -l 10 --sort rate`

@@ -48,6 +48,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./images/yay
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             u1and0/yay:latest
@@ -60,6 +61,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./images/archlinux
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             u1and0/archlinux:latest
@@ -72,6 +74,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./images/neovim
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             u1and0/neovim:latest
@@ -84,6 +87,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./images/zplug
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             u1and0/zplug:latest
@@ -98,6 +102,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./images/${{ matrix.context }}
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             u1and0/${{ matrix.context }}:latest
@@ -112,6 +117,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./images/nim
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             u1and0/nim:latest
