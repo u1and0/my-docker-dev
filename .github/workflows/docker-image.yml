@@ -45,7 +45,7 @@ jobs:
       # 直列で実行する。
       - name: Build and Push yay Image
         id: build_yay
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./images/yay
           platforms: linux/amd64,linux/arm64
@@ -58,7 +58,7 @@ jobs:
 
       - name: Build and Push Archlinux Image
         id: build_archlinux
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./images/archlinux
           platforms: linux/amd64,linux/arm64
@@ -71,7 +71,7 @@ jobs:
 
       - name: Build and Push Neovim Image
         id: build_neovim
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./images/neovim
           platforms: linux/amd64,linux/arm64
@@ -84,7 +84,7 @@ jobs:
 
       - name: Build and Push Zplug Image
         id: build_zplug
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./images/zplug
           platforms: linux/amd64,linux/arm64
@@ -99,7 +99,7 @@ jobs:
       # 並列に実行できる。
       - name: Build and Push Docker in Docker, Go, Deno, Python Image
         id: build_from_zplug
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./images/${{ matrix.context }}
           platforms: linux/amd64,linux/arm64
@@ -114,7 +114,7 @@ jobs:
       - name: Build and Push Nim Image
         if: matrix.context == 'python'
         id: build_nim
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./images/nim
           platforms: linux/amd64
