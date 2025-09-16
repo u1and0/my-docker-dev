@@ -38,8 +38,11 @@ poetry
 pyflakes
 pygments
 pylint
+pynvim
 python-lsp-server[all]
 requests
+ruff
+ruff-lsp
 scikit-learn
 scipy
 seaborn
