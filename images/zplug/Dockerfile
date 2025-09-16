@@ -12,7 +12,7 @@ FROM u1and0/neovim:latest
 # Reinstall packages required by zplug
 USER root
 RUN pacman -Sy --noconfirm archlinux-keyring &&\
-    pacman -Syyu --noconfirm zsh awk bat actionlint unzip eza diff-so-fancy &&\
+    pacman -Syyu --noconfirm zsh awk bat actionlint unzip eza diff-so-fancy npm &&\
     : "pacmanのキャッシュ削除"&&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 
@@ -30,6 +30,11 @@ RUN latest_url=$(curl -s https://api.github.com/repos/u1and0/gpt-cli/releases/la
     unzip gpt-cli-linux-x64.zip &&\
     chmod 755 release-package/gpt &&\
     mv release-package/gpt /usr/bin
+
+# Install Agents cli
+RUN npm install -g @google/gemini-cli \
+    @qwen-code/qwen-code \
+    @anthropic-ai/claude-code
 
 # Install zplug plugins
 # zplug install でエラー
