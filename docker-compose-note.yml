@@ -67,7 +67,7 @@ services:
         environment:
             - "PYTHONPATH=/home/u1and0/Dropbox/Program/python"
             - "HOST=python"
-        command: ["bash", "-c", "source /etc/profile.d/conda.sh && conda activate && jupyter lab"]
+        command: ["jupyter", "lab", "--no-browser", "--allow-root"]
         ports:
             - "8888:8888"  # jupyter notebook
             - "8880:8880"  # plotly dash
