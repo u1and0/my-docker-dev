@@ -31,6 +31,9 @@ RUN pacman -Syu --noconfirm git go base-devel
 WORKDIR "/build"
 RUN git clone --depth 1 https://aur.archlinux.org/yay.git
 WORKDIR "/build/yay"
+# ビルドの失敗を回避するためにbuilder stage の makepkg 実行前に追加。
+# ローカルビルドのためPGP署名を不要にする。
+RUN sed -i '/^\[options\]/a LocalFileSigLevel = Optional' /etc/pacman.conf
 RUN chown -R ${USERNAME}:${USERNAME} /build &&\
     CGO_ENABLED=0 sudo -u ${USERNAME} makepkg --noconfirm -si &&\
     sudo -u ${USERNAME} yay --afterclean --removemake --save
