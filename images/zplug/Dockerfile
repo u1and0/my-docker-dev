@@ -15,13 +15,10 @@ RUN pacman -Sy --noconfirm archlinux-keyring &&\
     pacman -Syyu --noconfirm zsh\
         awk\
         bat\
-        actionlint\
         unzip\
         eza\
         diff-so-fancy\
-        npm\
-        ddgr\
-        opencode &&\
+        ddgr&&\
     : "pacmanのキャッシュ削除"&&\
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns
 

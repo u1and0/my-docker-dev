@@ -19,6 +19,7 @@ RUN pacman -Syyu --noconfirm tmux \
                             docker \
                             docker-compose \
                             docker-buildx \
+                            actionlint\
                             btop \
                             ctop \
                             termdown \
