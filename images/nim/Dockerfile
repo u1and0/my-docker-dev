@@ -31,8 +31,9 @@ RUN pacman -Syu --noconfirm go zeromq
 USER u1and0
 RUN go install github.com/mattn/efm-langserver@latest
 RUN nimble refresh &&\
+    nimble -y install "hmac@0.2.0" && \
     nimble -y install nimlsp inim jupyternim
 
 LABEL maintainer="u1and0"\
       description="nim lang env with neovim and jupyter notebook"\
-      version="rust:v1.0.2"
+      version="nim:v0.1.1"
