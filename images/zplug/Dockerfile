@@ -37,11 +37,6 @@ RUN latest_url=$(curl -s https://api.github.com/repos/u1and0/gpt-cli/releases/la
     chmod 755 release-package/gpt &&\
     mv release-package/gpt /usr/bin
 
-# Install Agents cli
-RUN npm install -g @google/gemini-cli \
-    @qwen-code/qwen-code \
-    @anthropic-ai/claude-code
-
 # Install zplug plugins
 # zplug install でエラー
 #0 2.539 [zplug] WARNING: pipe syntax is deprecated! Please use 'on' tag instead.
